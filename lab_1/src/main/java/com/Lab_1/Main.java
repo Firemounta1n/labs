@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         Paginator paginator = new Paginator();
 
-        //Надо вынести в тесты:
         try {
             String html = paginator.html(1, 20);
             String fileName = "index.html";
