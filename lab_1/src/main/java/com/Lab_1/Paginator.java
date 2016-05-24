@@ -1,11 +1,19 @@
 package com.Lab_1;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Paginator {
     public ArrayList<Integer> getList(int currentPage, int countPages) {
         ArrayList <Integer> slidePart = new ArrayList<Integer>();
         ArrayList <Integer> result = new ArrayList<Integer>();
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the width of the paginator: ");
+        int wigth = input.nextInt();
+
 
         if (currentPage > countPages) {
             currentPage = countPages;
@@ -17,13 +25,13 @@ public class Paginator {
 
         if (countPages > 0) {
 
-            if ((currentPage - 1) > 0) {
-                slidePart.add(currentPage - 1);
-            }
-            slidePart.add(currentPage);
+            int element = currentPage - wigth/2;
 
-            if ((currentPage + 1) <= countPages) {
-                slidePart.add(currentPage + 1);
+            for (int i = 0; i < wigth; ++i){
+                if (element > 0 && element < countPages){
+                    slidePart.add(element);
+                }
+                element++;
             }
 
             Integer slideSize = slidePart.size() - 1;
