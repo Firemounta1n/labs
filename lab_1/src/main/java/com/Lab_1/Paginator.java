@@ -1,37 +1,33 @@
 package com.Lab_1;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Paginator {
-    public ArrayList<Integer> getList(int currentPage, int countPages) {
+    public ArrayList<Integer> getList(int currentPage, int countPages, int width) throws Exception {
         ArrayList <Integer> slidePart = new ArrayList<Integer>();
         ArrayList <Integer> result = new ArrayList<Integer>();
 
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the width of the paginator: ");
-        int wigth = input.nextInt();
-
-
-        if (currentPage > countPages) {
-            currentPage = countPages;
-        } else {
-            if (currentPage < 1) {
-                currentPage = 1;
-            }
+        if (currentPage > countPages || currentPage < 1 ) {
+            throw new Exception("Incorrect page number");
         }
 
         if (countPages > 0) {
 
-            int element = currentPage - wigth/2;
+            int trailWidth = (int)Math.ceil(width/2.0);
 
-            for (int i = 0; i < wigth; ++i){
-                if (element > 0 && element < countPages){
-                    slidePart.add(element);
-                }
-                element++;
+            int leftTrail = 0, rightTrail = 0;
+
+            if (currentPage - trailWidth + 1 < 1) {
+                leftTrail = Math.abs(currentPage - trailWidth);
+            }
+            if (currentPage + trailWidth > countPages) {
+                rightTrail = currentPage + trailWidth - countPages;
+            }
+
+            int start = Math.max(1, currentPage - trailWidth - rightTrail+1);
+            int end = currentPage + trailWidth + leftTrail;
+            for (int i = start; (i < end) && (i <= countPages); i++) {
+                slidePart.add(i);
             }
 
             Integer slideSize = slidePart.size() - 1;
@@ -56,9 +52,9 @@ public class Paginator {
         }
         return result;
     }
-    public String html(int currentPage, int countPages) {
+    public String html(int currentPage, int countPages,int  width) throws Exception {
 
-        ArrayList <Integer> listNumbers = this.getList(currentPage, countPages);
+        ArrayList <Integer> listNumbers = this.getList(currentPage, countPages, width);
 
         String html = "<html><head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css'>	<meta charset='UTF-8'></head><body>";
 
