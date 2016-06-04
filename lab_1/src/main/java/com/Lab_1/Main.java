@@ -1,16 +1,13 @@
-package com.Lab_1;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
         Paginator paginator = new Paginator();
 
         try {
-            String html = paginator.html(1, 20);
+            String html = paginator.html(9, 20, 7);
             String fileName = "index.html";
 
             File file = new File(fileName);
@@ -21,7 +18,7 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             writer.write(html);
             writer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
