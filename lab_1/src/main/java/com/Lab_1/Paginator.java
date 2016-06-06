@@ -21,7 +21,7 @@ public class Paginator {
                 leftTrail = Math.abs(currentPage - trailWidth);
             }
             if (currentPage + trailWidth > countPages) {
-                rightTrail = currentPage + trailWidth - countPages;
+                rightTrail = currentPage + trailWidth - countPages - 1;
             }
 
             int start = Math.max(1, currentPage - trailWidth - rightTrail+1);
